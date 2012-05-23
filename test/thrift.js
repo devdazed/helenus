@@ -160,6 +160,7 @@ module.exports = {
       var ts = new Date().getTime();
       //ensure the timestamp is within 1 second
       //test to ensure issue #4 doesn't happen again
+
       assert.ok(row.get('one').timestamp <= ts);
       assert.ok(row.get('one').timestamp >= ts - 1000);
 

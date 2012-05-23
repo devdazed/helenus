@@ -128,3 +128,18 @@
   * Stop Cassandra after tests in Travis-CI [ @ctavan #41 ]
   * Add support for ColumnFamily.truncate [ @devdazed #28 ]
   * Add better CQL escaping and parameterization [ @devdazed #36, #39 ]
+
+0.5.1 / 2012-05-02
+==================
+
+  * Set column timestamps in microseconds
+
+0.5.2 / 2012-05-11
+==================
+
+  * Removed unneeded escaping
+
+0.5.3 / 2012-05-15
+==================
+
+  * Fix incorrect CQL setting after restarting dropped connection [ @devdazed #49 ]

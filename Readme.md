@@ -1,4 +1,3 @@
-
 # Helenus
 
   NodeJS Bindings for Cassandra
@@ -36,7 +35,7 @@
         user       : 'test',
         password   : 'test1233',
         timeout    : 3000
-        //cqlVersion : '3.0.0' // specify this if you're using Cassandra 1.1
+        //cqlVersion : '3.0.0' // specify this if you're using Cassandra 1.1 and want to use CQL 3
       });
 
   //if you don't listen for error, it will bubble up to `process.uncaughtException`
@@ -58,14 +57,13 @@
       //for formatting specific see `http://nodejs.org/docs/latest/api/util.html#util.format`
       //results is an array of row objects
 
-      pool.cql("SELECT '%s' FROM cf_one WHERE key='%s'", ['col','key123'], function(err, results){
+      pool.cql("SELECT col FROM cf_one WHERE key = ?", ['key123'], function(err, results){
         console.log(err, results);
       });
 
       //NOTE:
-      //- You can also use ? as a placeholder. eg: "SELECT ? FROM cf_one WHERE key = ?"
       //- You can always skip quotes around placeholders, they are added automatically.
-      //- You cannot use placeholders for ColumnFamily names.
+      //- In CQL 3 you cannot use placeholders for ColumnFamily names or Column names.
     }
   });
 ```
@@ -158,6 +156,19 @@ This will return the column with a specific name
       console.log(row.get('foo'));
     });
 
+### row.forEach()
+
+This is wrapper function of Array.forEach which return name,value,ts,ttl of column from row as callback params.
+
+    results.foreach(function(row){
+      //all row of result
+      row.forEach(function(name,value,ts,tttl){
+        //all column of row
+        console.log(name,value,ts,ttl);
+      });
+    
+    });
+    
 ### row.slice(start, finish)
 
 Slices columns in the row based on their numeric index, this allows you to get
